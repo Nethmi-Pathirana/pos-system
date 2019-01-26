@@ -4,85 +4,98 @@ var router = express.Router();
 var Order = require('../models/order');
 var Item = require('../models/item');
 
-router.get('/', function (req, res) {
+// Get all open orders
+router.get('/', (req, res) => {
     Order.find({})
-    .populate('items.item')
-        .then(x => {console.log('all orders', JSON.stringify(x))})
-        .then(orders => res.json(orders));
+        .populate('items.item')
+        .then(orders => {
+            orders = orders.filter(x => x.status.toString() === "open")
+            res.json(orders);
+        });
 });
 
-router.get('/:orderID', function (req, res) {
-    Order.findById(req.params.orderID, (err, order) => {
-        if(!order)
-            return res.status(404).json('Not Found'); 
-        res.json(order)
-    });
+// Get an order specified by orderID
+router.get('/:orderID', (req, res) => {
+    Order.findById(req.params.orderID)
+        .populate('items.item')
+        .then(order =>
+            res.json({ order: order })
+        );
 });
 
+// Add order
 router.post('/', (req, res) => {
-    const newOrder = new Order(req.b5c44b2aa3cb4cf64a9e0b2aaody);
+    const newOrder = new Order(req.body);
     newOrder.save().then(order => res.json(order));
 });
 
-router.put('/add-item/:orderID', (req, res) => {
-    Order.findById(req.params.orderID, (err, order) => {
-        if(!order)
-            return res.status(404).json('Not Found'); 
+// Change order status
+router.put('/:id', (req, res) => {
+    Order.findById(req.params.id)
+        .then(order => {
+            order.status = "closed";
+            // save order
+            order.save((err, savedOrder) => {
+                res.json(savedOrder);
+            });
 
-        let alreadyInList = false;
-        order.items.forEach(x => {
-            if (x.item.toString() === req.body.itemID) {
-                alreadyInList = true;
-                x.quantity = req.body.quantity;
-                // save order
-                order.save((err, savedOrder) => {
-                    res.json({success: true, order: savedOrder});
-                });
-            }
-        });
-        if(!alreadyInList) {
-            Item.findById(req.body.itemID, (err2, item) => {
-                if(!item) {
-                    next(createError(404, 'Not Found'));
-                } else {
-                    order.items.push({
-                        item: item, 
-                        quantity: req.body.quantity
-                    });
+        })
+});
+
+// Update order (add item to order/ update quatity of an item)
+router.put('/add-item/:orderID', (req, res) => {
+    Order.findById(req.params.orderID)
+        .populate('items.item')
+        .then(order => {
+            if (!order)
+                return res.status(404).json('Order Not Found');
+
+            let alreadyInList = false;
+            order.items.forEach(x => {
+                if (x.item._id.toString() === req.body.itemID) {
+                    alreadyInList = true;
+                    x.quantity = req.body.quantity;
                     // save order
                     order.save((err, savedOrder) => {
-                        res.json({success: true, order: savedOrder});
+                        res.json({ order: savedOrder });
                     });
                 }
             });
-        }
-    });
+            if (!alreadyInList) {
+                Item.findById(req.body.itemID, (err2, item) => {
+                    if (!item) {
+                        next(createError(404, 'Item Not Found'));
+                    } else {
+                        order.items.push({
+                            item: item,
+                            quantity: req.body.quantity
+                        });
+                        // save order
+                        order.save((err, savedOrder) => {
+                            res.json({ order: savedOrder });
+                        });
+                    }
+                });
+            }
+        });
 });
 
-//TODO
-//delete item from order
+// Delete item from order
 router.delete('/remove-item/:orderID/:itemID', (req, res) => {
     Order.findById(req.params.orderID)
-      .then(order => {
-        // Check to see if item exists
-        console.log("1");
-        if (
-          
-          order.items.filter(x => x.item.toString() === req.body.itemID).length === 0) {
-            console.log("2");
-            return res.status(404).json('Item does not exist');
-          
-        } else {
-            console.log("3");
-            order.items = order.items.filter(x => x.item.toString() !== req.body.itemID)
-            
-            // save order
-            order.save((err, savedOrder) => {
-                res.json({success: true, order: savedOrder});
-            });
-        }
-      })
-    //   .catch(err => res.status(404).json('No order found'));
+        .populate('items.item')
+        .then(order => {
+            // Check to see if item exists
+            if (order.items.filter(x => x.item._id.toString() === req.params.itemID).length === 0) {
+                return res.status(404).json('Item does not exist');
+            } else {
+                order.items = order.items.filter(x => x.item._id.toString() !== req.params.itemID)
+                // save order
+                order.save((err, savedOrder) => {
+                    res.json({ order: savedOrder });
+                });
+            }
+        })
 });
 
 module.exports = router;

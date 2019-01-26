@@ -2,7 +2,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var path = require('path');
 
 var config = require('./config');
 var userRoutes = require('./routes/auth');
@@ -28,7 +27,7 @@ res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 // Set custom headers for CORS
 res.header(
     'Access-Control-Allow-Headers',
-    'Content-type,Accept,X-Access-Token,X-Key',
+    'Content-type,Accept,X-Access-Token,X-Key,Authorization',
 );
 if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -36,10 +35,6 @@ if (req.method === 'OPTIONS') {
     next();
 }
 });
-
-//Point static path to dist
-// TODO 
-// app.use(express.static(path.join(__dirname, 'dist')));
 
 //setup api routes
 app.use('/users', userRoutes);
@@ -58,7 +53,6 @@ app.use(function(err, req, res, next) {
 });
 
 app.get('/', function(req, res) {
-    // res.sendFile(path.join(__dirname + '../pos-web/public/index.html')); laterrrrr
     res.jsonp({status: "Server is running"});
 });
 
@@ -66,3 +60,5 @@ app.get('/', function(req, res) {
 app.listen(process.env.PORT || config.sever_port, function () {
     console.log(`Server started on port ${config.sever_port}`);
 });
+
+module.exports = app;

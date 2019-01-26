@@ -8,6 +8,11 @@
     "start": "node server.js",
     "server": "nodemon server.js"
   },
+  "jest": {
+    "bail": true,
+    "testEnvironment": "node",
+    "collectCoverage": true
+  },
   "author": "Nethmi",
   "license": "MIT",
   "dependencies": {
@@ -15,7 +20,8 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.4.3"
+    "mongoose": "^5.4.3",
+    "supertest": "^3.4.2"
   },
   "devDependencies": {
     "jest": "^23.6.0",

@@ -10,7 +10,7 @@ var schema = new Schema({
         type : Number, 
         required : true,
     }, 
-    description: {
+    img: {
         type: String
     }
 });
