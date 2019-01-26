@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ADD_ORDER, GET_ORDERS, GET_ORDER, GET_ERRORS, CLEAR_ERRORS, ORDER_LOADING } from './actions';
+import { ADD_ORDER, DELETE_ORDER, GET_ORDERS, GET_ORDER, GET_ERRORS, CLEAR_ERRORS, ORDER_LOADING, SET_ITEMS  } from './actions';
 
 const url = "http://localhost:8080";
 
@@ -27,7 +27,7 @@ export const getOrders = () => dispatch => {
 export const getOrder = id => dispatch => {
     dispatch(setOrderLoading());
     axios
-      .get(`/orders/${id}`)
+      .get(`${url}/orders/${id}`)
       .then(res =>
         dispatch({
           type: GET_ORDER,
@@ -45,7 +45,7 @@ export const getOrder = id => dispatch => {
 // Add Order
 export const addOrder = orderData => dispatch => {
     dispatch(clearErrors());
-    axios
+     return axios
       .post(`${url}/orders`, orderData)
       .then(res =>
         dispatch({
@@ -61,11 +61,37 @@ export const addOrder = orderData => dispatch => {
       );
 };
 
+// Delete Order
+export const deleteOrder = (orderID) => dispatch => {
+  return axios
+  .put(`${url}/orders/${orderID}`)
+  .then(res =>
+    dispatch({
+      type: DELETE_ORDER,
+      payload: res.data
+    })
+  )
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  );
+};
+
+// Set items to order in order detail view
+export const setIems = itemData => dispatch => {
+  dispatch({
+    type: SET_ITEMS,
+    payload: itemData
+  })
+};
+
 // Add Item
 export const addItem = (orderID, itemData) => dispatch => {
     dispatch(clearErrors());
-    axios
-      .post(`/orders/add-item/${orderID}`, itemData)
+    return axios
+      .put(`${url}/orders/add-item/${orderID}`, itemData)
       .then(res =>
         dispatch({
           type: GET_ORDER,
@@ -82,8 +108,8 @@ export const addItem = (orderID, itemData) => dispatch => {
 
 // Delete Item
 export const deleteItem = (orderID, itemID) => dispatch => {
-    axios
-    .delete(`/orders/delete-item/${orderID}/${itemID}`)
+    return axios
+    .delete(`${url}/orders/remove-item/${orderID}/${itemID}`)
     .then(res =>
       dispatch({
         type: GET_ORDER,
@@ -105,10 +131,10 @@ export const setOrderLoading = () => {
     };
   };
   
-  // Clear errors
-  export const clearErrors = () => {
-    return {
-      type: CLEAR_ERRORS
-    };
+// Clear errors
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
   };
+};
   

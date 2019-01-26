@@ -1,13 +1,14 @@
-import { ORDER_LOADING, GET_ORDERS, GET_ORDER, ADD_ITEM, ADD_ORDER } from '../actions/types';
+import { ORDER_LOADING, GET_ORDERS, GET_ORDER, ADD_ORDER, DELETE_ORDER, SET_ITEMS } from '../actions/actions';
 
 const initialState = {
     orders: [],
     order: {},
-    loading: false
+    itemsToSelect: [],
+    loading: false,
 };
 
-export default function (state = initialState, action){
-    switch (action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
         case ORDER_LOADING:
             return {
                 ...state,
@@ -17,12 +18,12 @@ export default function (state = initialState, action){
             return {
                 ...state,
                 orders: action.payload,
-                loading : false
+                loading: false
             };
         case GET_ORDER:
             return {
                 ...state,
-                order: action.payload,
+                order: action.payload.order,
                 loading: false
             };
         case ADD_ORDER:
@@ -30,7 +31,17 @@ export default function (state = initialState, action){
                 ...state,
                 orders: [action.payload, ...state.orders]
             };
+        case DELETE_ORDER:
+            return {
+                ...state,
+                orders: state.orders.filter(order => order._id !== action.payload._id)
+            };
+        case SET_ITEMS:
+            return {
+                ...state,
+                itemsToSelect: action.payload
+            };
         default:
-            return state;        
+            return state;
     }
 }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../utils/AuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER } from './actions';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS} from './actions';
 
 const url = "http://localhost:8080";
 
@@ -59,4 +59,11 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+// Clear errors
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
 };

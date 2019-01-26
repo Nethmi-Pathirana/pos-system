@@ -32,8 +32,12 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
+            showMsg: false,
+            message: ''
         };
         this.authenticate = this.authenticate.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.showError = this.showError.bind(this);
     }
 
     componentDidMount() {
@@ -46,6 +50,9 @@ class Login extends Component {
         if (nextProps.auth.isAuthenticated) {
             this.props.history.push('/orders');
         }
+        // if (nextProps.errors) {
+        //     this.showError(nextProps.errors);
+        // }
     }
 
     authenticate(e) {
@@ -55,7 +62,7 @@ class Login extends Component {
           password: this.state.password
         };
         
-        let result = this.props.loginUser(authDetails);
+        this.props.loginUser(authDetails);
     }
 
     handleChange(name, event) {
@@ -64,10 +71,21 @@ class Login extends Component {
         });
     };
 
+    handleClose() {
+        this.setState({ showMsg: false });
+    };
+
+    showError(message) {
+        this.setState({
+            showMsg: true,
+            message: message
+        });
+    }
+
     render() {
         return (
             <div>
-                {/* <Snackbar
+                <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
@@ -81,7 +99,7 @@ class Login extends Component {
                             OK
                         </Button>
                     ]}
-                /> */}
+                />
                 <Header title={'Login'} hideUserSettings/>
                 <form style={styles.container} noValidate autoComplete="off" onSubmit={this.authenticate}>
                     <Paper style={styles.formPaper}>
@@ -122,10 +140,12 @@ class Login extends Component {
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 };
   
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    errors: state.errors
 });
   
 export default connect(mapStateToProps, { loginUser })(Login);
