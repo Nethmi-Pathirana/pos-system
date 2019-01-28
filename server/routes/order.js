@@ -3,9 +3,10 @@ var router = express.Router();
 
 var Order = require('../models/order');
 var Item = require('../models/item');
+var Auth = require('./auth');
 
 // Get all open orders
-router.get('/', (req, res) => {
+router.get('/', Auth.isAuth, (req, res) => {
     Order.find({})
         .populate('items.item')
         .then(orders => {
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // Get an order specified by orderID
-router.get('/:orderID', (req, res) => {
+router.get('/:orderID', Auth.isAuth, (req, res) => {
     Order.findById(req.params.orderID)
         .populate('items.item')
         .then(order =>
@@ -24,13 +25,14 @@ router.get('/:orderID', (req, res) => {
 });
 
 // Add order
-router.post('/', (req, res) => {
+router.post('/', Auth.isAuth, (req, res) => {
+    console.log("post")
     const newOrder = new Order(req.body);
     newOrder.save().then(order => res.json(order));
 });
 
 // Change order status
-router.put('/:id', (req, res) => {
+router.put('/:id', Auth.isAuth, (req, res) => {
     Order.findById(req.params.id)
         .then(order => {
             order.status = "closed";
@@ -43,7 +45,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Update order (add item to order/ update quatity of an item)
-router.put('/add-item/:orderID', (req, res) => {
+router.put('/add-item/:orderID', Auth.isAuth, (req, res) => {
     Order.findById(req.params.orderID)
         .populate('items.item')
         .then(order => {
@@ -64,7 +66,7 @@ router.put('/add-item/:orderID', (req, res) => {
             if (!alreadyInList) {
                 Item.findById(req.body.itemID, (err2, item) => {
                     if (!item) {
-                        next(createError(404, 'Item Not Found'));
+                        res.status(404).json('Item Not Found');
                     } else {
                         order.items.push({
                             item: item,
@@ -81,7 +83,7 @@ router.put('/add-item/:orderID', (req, res) => {
 });
 
 // Delete item from order
-router.delete('/remove-item/:orderID/:itemID', (req, res) => {
+router.delete('/remove-item/:orderID/:itemID', Auth.isAuth, (req, res) => {
     Order.findById(req.params.orderID)
         .populate('items.item')
         .then(order => {

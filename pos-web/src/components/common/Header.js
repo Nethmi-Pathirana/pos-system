@@ -20,6 +20,9 @@ class Header extends Component {
             anchorEl: null,
         };
         this.renderRightLinks = this.renderRightLinks.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
+        this.handleMenu = this.handleMenu.bind(this);
     }
 
     handleMenu(event) {
