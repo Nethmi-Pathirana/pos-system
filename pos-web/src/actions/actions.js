@@ -1,6 +1,7 @@
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const AUTH_ERRORS = 'AUTH_ERRORS';
+export const CLEAR_AUTH_ERRORS = 'CLEAR_AUTH_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_ORDERS = 'GET_ORDERS';

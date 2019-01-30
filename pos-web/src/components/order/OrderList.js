@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import InfoIcon from '@material-ui/icons/Info';
 import store from '../../store';
+import { stat } from 'fs';
 
 const styles = {
     header: {
@@ -52,9 +53,18 @@ class OrderList extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.authError) {
+            this.props.history.push({
+                    pathname: '/login',
+                    state: { message: nextProps.auth.authError }
+                });
+        }
+    }
+
     handleNewOrder() {
         this.props.addOrder({ status: "open" }).then((result) => {
-            this.props.history.push(`/order/${result.payload._id}/${store.getState().order.orders.length}`);
+            this.props.history.push(`/order/${result.payload._id}`);
         });
     }
 
@@ -119,6 +129,6 @@ OrderList.propTypes = {
 
 const mapStateToProps = state => ({
     order: state.order,
-    auth: state.auth
+    auth : state.auth
 });
 export default connect(mapStateToProps, { getOrders, addOrder })(OrderList);

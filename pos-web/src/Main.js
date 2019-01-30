@@ -18,7 +18,7 @@ class Main extends React.Component {
                         <Route exact path="/login" component={Login} />
                         <Route path="/signup" component={SignUp} />
                         <Route path="/orders" component={OrderList} />
-                        <Route path="/order/:id/:orderId" component={OrderDetails} />
+                        <Route path="/order/:id" component={OrderDetails} />
                     </Switch>
                 </BrowserRouter>
             </Provider>

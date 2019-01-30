@@ -52,7 +52,8 @@ class Login extends Component {
         if (nextProps.auth.isAuthenticated) {
             this.props.history.push('/orders');
         }
-        if (nextProps.errors) {
+        
+        if (nextProps.errors.error !== "") {
             this.showError(nextProps.errors.error);
         }
     }
@@ -103,7 +104,7 @@ class Login extends Component {
                     ]}
                 />
                 <Header title={'Login'} hideUserSettings />
-                {(this.props.location.state && this.props.location.state.message !== null) ?
+                {(this.props.location.state && this.props.location.state.message !== "") ?
                     <SnackbarContent
                         style={{ backgroundColor: '#b72e24', margin: '0 auto', width: '15%', marginTop: '2%'}}
                         message={

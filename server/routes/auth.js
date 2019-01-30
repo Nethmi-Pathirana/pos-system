@@ -12,8 +12,9 @@ exports.isAuth = (req, res, next) => {
         } else {
           req.isAuthenticated = true;
           req.user = data;
+          next();
         }
-        next();
+        
       });
     } else {
       res.status(401).json("Unauthorized");

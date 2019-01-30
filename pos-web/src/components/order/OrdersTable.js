@@ -74,7 +74,7 @@ class OrdersTable extends Component {
                                         <TableCell>{order.items.length}</TableCell>
                                         <TableCell>{this.calculateTotal(order.items)}</TableCell>
                                         <TableCell >
-                                            {<Link to={`/order/${order._id}/${index + 1}`} style={{ textDecoration: 'none', marginRight:'1%' }}>
+                                            {<Link to={`/order/${order._id}`} style={{ textDecoration: 'none', marginRight:'1%' }}>
                                                 <Button variant="contained" color="primary">
                                                     <EditIcon />
                                                     Edit Order

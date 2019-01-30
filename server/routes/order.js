@@ -26,7 +26,6 @@ router.get('/:orderID', Auth.isAuth, (req, res) => {
 
 // Add order
 router.post('/', Auth.isAuth, (req, res) => {
-    console.log("post")
     const newOrder = new Order(req.body);
     newOrder.save().then(order => res.json(order));
 });

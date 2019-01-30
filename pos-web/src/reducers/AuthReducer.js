@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, LOGOUT_USER, AUTH_ERRORS } from '../actions/actions';
+import { SET_CURRENT_USER, LOGOUT_USER, AUTH_ERRORS, CLEAR_AUTH_ERRORS } from '../actions/actions';
 
 const initialState = {
   isAuthenticated: false,
@@ -22,10 +22,19 @@ export default function (state = initialState, action) {
       };
     case AUTH_ERRORS:
       return {
-        authError: action.payload ,
+        ...state,
+        authError: action.payload,
         isAuthenticated: false,
         user: {},
       };
+    case CLEAR_AUTH_ERRORS:
+      return {
+        ...state,
+        authError: ''
+        // isAuthenticated: st,
+        // user: {},
+      };
+      
     default:
       return state;
   }

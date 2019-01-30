@@ -56,6 +56,15 @@ class OrderDetails extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.authError) {
+            this.props.history.push({
+                    pathname: '/login',
+                    state: { message: nextProps.auth.authError }
+                });
+        }
+    }
+    
     calculateTotal(items) {
         var total = 0;
         items.map(x => {
@@ -135,7 +144,7 @@ class OrderDetails extends Component {
                                     </TableHead>
                                     <TableBody>
                                         <TableRow >
-                                            <TableCell style={styles.cell}>{this.props.match.params.orderId}</TableCell>
+                                            <TableCell style={styles.cell}>{order.orderId}</TableCell>
                                             <TableCell style={styles.cell}>{order.status}</TableCell>
                                             <TableCell style={styles.cell}>{order.items && order.items.length}</TableCell>
                                             <TableCell style={styles.cell}>{order.items && this.calculateTotal(order.items)}</TableCell>
