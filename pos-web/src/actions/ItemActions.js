@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_ITEMS, ITEM_LOADING } from './actions';
+import { GET_ITEMS, ITEM_LOADING, AUTH_ERRORS, GET_ERRORS } from './actions';
 
 const url = "http://localhost:8080";
 
@@ -15,12 +15,24 @@ export const getItems = () => dispatch => {
                 payload: res.data
             })
         )
-        .catch(err =>
-            dispatch({
-                type: GET_ITEMS,
-                payload: null
-            })
-        );
+        .catch(err => {
+            if (err.response.status === 401) {
+                dispatch({
+                    type: AUTH_ERRORS,
+                    payload: "Please log in first"
+                });
+            } else if (err.response.status === 403) {
+                dispatch({
+                    type: AUTH_ERRORS,
+                    payload: "Session expired! Please login again"
+                });
+            } else {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                });
+            }
+        });
 };
 
 // Set loading state
