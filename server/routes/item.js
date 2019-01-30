@@ -20,7 +20,7 @@ router.get('/:id', Auth.isAuth, (req, res) => {
 });
 
 // Add new item
-router.post('/', Auth.isAuth, (req, res) => {
+router.post('/', (req, res) => {
     const newItem = new Item(req.body);
     newItem.save().then(item => res.json(item));
 });

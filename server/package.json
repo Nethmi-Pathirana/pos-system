@@ -21,6 +21,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.3",
+    "mongoose-auto-increment": "^5.0.1",
     "supertest": "^3.4.2"
   },
   "devDependencies": {

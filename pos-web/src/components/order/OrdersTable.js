@@ -70,7 +70,7 @@ class OrdersTable extends Component {
                             {orders && orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((order, index) => {
                                 return (
                                     <TableRow key={order._id} hover>
-                                        <TableCell>{index + 1}</TableCell>
+                                        <TableCell>{order.orderId}</TableCell>
                                         <TableCell>{order.items.length}</TableCell>
                                         <TableCell>{this.calculateTotal(order.items)}</TableCell>
                                         <TableCell >

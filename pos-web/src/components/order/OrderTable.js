@@ -56,7 +56,7 @@ class OrderTable extends Component {
         this.props.setIems(filteredItemsArray);
     }
 
-    handleChangePage(page) {
+    handleChangePage(event, page) {
         this.setState({ page });
     };
 
@@ -105,7 +105,7 @@ class OrderTable extends Component {
                                 </div>
                             ) : (
                                     <div style={{ display: 'contents' }}>
-                                        {items && items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index) => {
+                                        {items && items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index) => { //TODO: index change
                                             return (
                                                 <TableRow>
                                                     <TableCell>
@@ -116,7 +116,7 @@ class OrderTable extends Component {
                                                                         <DeleteIcon />
                                                                     </IconButton>
                                                                 </Tooltip>
-                                                                {index + 1}
+                                                                {item.item.itemId}
                                                             </div>
                                                         }
                                                     </TableCell>
@@ -139,6 +139,7 @@ class OrderTable extends Component {
                     </Table>
                     <TablePagination
                         component="div"
+                        rowsPerPageOptions={[5, 10, 15]}
                         count={items && items.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
