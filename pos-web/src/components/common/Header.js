@@ -5,6 +5,7 @@ import { logoutUser } from '../../actions/AuthActions';
 
 import { AppBar, IconButton, MenuItem } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Cart from '@material-ui/icons/ShoppingCart';
 import Menu from '@material-ui/core/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -85,6 +86,7 @@ class Header extends Component {
         return (
             <AppBar position="static" style={{ backgroundColor: '#19188d' }}>
                 <Toolbar>
+                    <Cart style={{marginRight: '1%'}}/>
                     <Typography variant="title" color="inherit">
                         {this.props.title}
                     </Typography>

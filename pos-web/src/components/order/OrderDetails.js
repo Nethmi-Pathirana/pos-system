@@ -11,7 +11,7 @@ import { DialogContent, CircularProgress, DialogContentText, Dialog, DialogTitle
 import OrderTable from '../order/OrderTable';
 import ItemList from '../items/ItemList';
 import Back from '@material-ui/icons/ArrowBack';
-import store from '../../store';
+import Money from '@material-ui/icons/AttachMoney';
 
 const styles = {
     header: {
@@ -45,7 +45,15 @@ class OrderDetails extends Component {
     }
 
     componentDidMount() {
-        this.props.getOrder(this.props.match.params.id);
+        this.props.getOrder(this.props.match.params.id)
+        .then(()=>{
+            if (!this.props.auth.isAuthenticated) {
+                this.props.history.push({
+                    pathname: '/login',
+                    state: { message: this.props.auth.authError }
+                });
+            }
+        });
     }
 
     calculateTotal(items) {
@@ -111,7 +119,8 @@ class OrderDetails extends Component {
                         <div>
                             <div style={{ marginTop: '1%', textAlign: 'center' }}>
                                 <Button onClick={() => this.handlePay(order._id)} variant="contained" color="primary">
-                                    Pay
+                                    <Money />
+                                    Pay Order
                                 </Button>
                             </div>
                             <Paper style={{ width: '50%', margin: 'auto', backgroundColor: '#D8DDE1', marginTop: '1%' }}>
@@ -156,11 +165,13 @@ OrderDetails.propTypes = {
     getOrder: PropTypes.func.isRequired,
     order: PropTypes.object.isRequired,
     setIems: PropTypes.func.isRequired,
-    deleteOrder: PropTypes.func.isRequired
+    deleteOrder: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    order: state.order
+    order: state.order,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getOrder, setIems, deleteOrder })(OrderDetails);

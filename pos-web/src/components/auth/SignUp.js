@@ -49,7 +49,7 @@ class SignUp extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.showError(nextProps.errors);
+            this.showError(nextProps.errors.error);
         }
     }
 
@@ -59,9 +59,7 @@ class SignUp extends Component {
             username: this.state.username,
             password: this.state.password
         };
-
         this.props.registerUser(newUser, this.props.history);
-
     }
 
     handleChange(name, event) {
@@ -90,7 +88,7 @@ class SignUp extends Component {
                         horizontal: 'center',
                     }}
                     open={this.state.showMsg}
-                    autoHideDuration={6000}
+                    autoHideDuration={3000}
                     onClose={this.handleClose}
                     message={this.state.message}
                     action={[

@@ -65,7 +65,7 @@ class OrderTable extends Component {
     };
 
     handleDeleteItem(id) {
-        this.props.deleteItem(this.props.orderID, id).then((res) => {
+        this.props.deleteItem(store.getState().order.order._id, id).then((res) => {
             this.getNotSelectedItems();
         });
     };

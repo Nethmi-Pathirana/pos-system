@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-import { ADD_ORDER, DELETE_ORDER, GET_ORDERS, GET_ORDER, GET_ERRORS, CLEAR_ERRORS, ORDER_LOADING, SET_ITEMS  } from './actions';
+import { ADD_ORDER, DELETE_ORDER, GET_ORDERS, GET_ORDER, GET_ERRORS, CLEAR_ERRORS, ORDER_LOADING, SET_ITEMS, AUTH_ERRORS  } from './actions';
 
 const url = "http://localhost:8080";
 
 //Get Orders
 export const getOrders = () => dispatch => {
     dispatch(setOrderLoading());
-    axios
+    return axios
     .get(`${url}/orders`)
     .then(res =>
       dispatch({
@@ -15,18 +15,30 @@ export const getOrders = () => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
-      dispatch({
-        type: GET_ORDERS,
-        payload: null
-      })
-    );
+    .catch(err =>{
+      if (err.response.status === 401) {
+        dispatch({
+          type: AUTH_ERRORS,
+          payload: "Please log in first"
+        });
+      } else if (err.response.status === 403){
+        dispatch({
+          type: AUTH_ERRORS,
+          payload: "Session expired! Please login again"
+        });
+      } else {
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        });
+      }
+    });
 };
 
 // Get Order
 export const getOrder = id => dispatch => {
     dispatch(setOrderLoading());
-    axios
+    return axios
       .get(`${url}/orders/${id}`)
       .then(res =>
         dispatch({
@@ -34,12 +46,24 @@ export const getOrder = id => dispatch => {
           payload: res.data
         })
       )
-      .catch(err =>
-        dispatch({
-          type: GET_ORDER,
-          payload: null
-        })
-      );
+      .catch(err =>{
+        if (err.response.status === 401) {
+          dispatch({
+            type: AUTH_ERRORS,
+            payload: "Please log in first"
+          });
+        } else if (err.response.status === 403){
+          dispatch({
+            type: AUTH_ERRORS,
+            payload: "Session expired! Please login again"
+          });
+        } else {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          });
+        }
+      });
 };
 
 // Add Order
@@ -53,12 +77,24 @@ export const addOrder = orderData => dispatch => {
           payload: res.data
         })
       )
-      .catch(err =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data
-        })
-      );
+      .catch(err =>{
+        if (err.response.status === 401) {
+          dispatch({
+            type: AUTH_ERRORS,
+            payload: "Please log in first"
+          });
+        } else if (err.response.status === 403){
+          dispatch({
+            type: AUTH_ERRORS,
+            payload: "Session expired! Please login again"
+          });
+        } else {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          });
+        }
+      });
 };
 
 // Delete Order
@@ -71,12 +107,24 @@ export const deleteOrder = (orderID) => dispatch => {
       payload: res.data
     })
   )
-  .catch(err =>
-    dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
-    })
-  );
+  .catch(err =>{
+    if (err.response.status === 401) {
+      dispatch({
+        type: AUTH_ERRORS,
+        payload: "Please log in first"
+      });
+    } else if (err.response.status === 403){
+      dispatch({
+        type: AUTH_ERRORS,
+        payload: "Session expired! Please login again"
+      });
+    } else {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    }
+  });
 };
 
 // Set items to order in order detail view
@@ -98,12 +146,24 @@ export const addItem = (orderID, itemData) => dispatch => {
           payload: res.data
         })
       )
-      .catch(err =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data
-        })
-      );
+      .catch(err =>{
+        if (err.response.status === 401) {
+          dispatch({
+            type: AUTH_ERRORS,
+            payload: "Please log in first"
+          });
+        } else if (err.response.status === 403){
+          dispatch({
+            type: AUTH_ERRORS,
+            payload: "Session expired! Please login again"
+          });
+        } else {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          });
+        }
+      });
   };
 
 // Delete Item
@@ -116,12 +176,24 @@ export const deleteItem = (orderID, itemID) => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .catch(err =>{
+      if (err.response.status === 401) {
+        dispatch({
+          type: AUTH_ERRORS,
+          payload: "Please log in first"
+        });
+      } else if (err.response.status === 403){
+        dispatch({
+          type: AUTH_ERRORS,
+          payload: "Session expired! Please login again"
+        });
+      } else {
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        });
+      }
+    });
 };
 
 // Set loading state

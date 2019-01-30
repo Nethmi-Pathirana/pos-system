@@ -11,16 +11,18 @@ import Button from "@material-ui/core/es/Button/Button";
 import InputLabel from "@material-ui/core/es/InputLabel/InputLabel";
 import Snackbar from "@material-ui/core/es/Snackbar/Snackbar";
 import Paper from "@material-ui/core/Paper";
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import InfoIcon from '@material-ui/icons/Info';
 
 const styles = {
-    container:{
+    container: {
         display: 'flex',
-        flexWrap:'wrap'
+        flexWrap: 'wrap'
     },
     formPaper: {
-        padding: 50,
-        marginTop: '10%',
-        marginLeft : '35%',
+        padding: '2%',
+        marginTop: '5%',
+        marginLeft: '38%',
         width: '20%'
     },
 };
@@ -42,26 +44,26 @@ class Login extends Component {
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push('/orders');
+            this.props.history.push('/orders');
         }
     }
-    
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
             this.props.history.push('/orders');
         }
-        // if (nextProps.errors) {
-        //     this.showError(nextProps.errors);
-        // }
+        if (nextProps.errors) {
+            this.showError(nextProps.errors.error);
+        }
     }
 
     authenticate(e) {
         e.preventDefault();
         const authDetails = {
-          username: this.state.username,
-          password: this.state.password
+            username: this.state.username,
+            password: this.state.password
         };
-        
+
         this.props.loginUser(authDetails);
     }
 
@@ -91,7 +93,7 @@ class Login extends Component {
                         horizontal: 'center',
                     }}
                     open={this.state.showMsg}
-                    autoHideDuration={6000}
+                    autoHideDuration={3000}
                     onClose={this.handleClose}
                     message={this.state.message}
                     action={[
@@ -100,35 +102,48 @@ class Login extends Component {
                         </Button>
                     ]}
                 />
-                <Header title={'Login'} hideUserSettings/>
+                <Header title={'Login'} hideUserSettings />
+                {(this.props.location.state && this.props.location.state.message !== null) ?
+                    <SnackbarContent
+                        style={{ backgroundColor: '#b72e24', margin: '0 auto', width: '15%', marginTop: '2%'}}
+                        message={
+                            <span style={{ display: 'flex', alignItems: 'center' }}>
+                                <InfoIcon style={{ fontSize: 30, opacity: 0.9, marginRight: 10 }} />
+                                {this.props.location.state.message}
+                            </span>
+                        }
+                    /> : <div></div>}
+
+
                 <form style={styles.container} noValidate autoComplete="off" onSubmit={this.authenticate}>
                     <Paper style={styles.formPaper}>
-                        <Typography variant="headline" style={{textAlign:'center',fontWeight:'bold'}}>
+
+                        <Typography variant="headline" style={{ textAlign: 'center', fontWeight: 'bold' }}>
                             Login
                         </Typography>
                         <TextField
                             id="username"
-                            label= "Username"
+                            label="Username"
                             margin="normal"
-                            style={{marginRight: '10%',width:'100%'}}
-                            type= "text"
+                            style={{ marginRight: '10%', width: '100%' }}
+                            type="text"
                             onChange={(e) => this.handleChange('username', e)}
                         />
                         <TextField
                             id="password"
-                            label= "Password"
+                            label="Password"
                             margin="normal"
-                            style={{marginRight: '10%',width:'100%'}}
-                            type= "password"
+                            style={{ marginRight: '10%', width: '100%' }}
+                            type="password"
                             onChange={(e) => this.handleChange('password', e)}
                         />
-                        <br/><br/><br/>
+                        <br /><br /><br />
                         <center>
-                            <Button variant="contained" color="primary" type="submit" style={{width:'100%'}}>
+                            <Button variant="contained" color="primary" type="submit" style={{ width: '100%' }}>
                                 Login
                             </Button>
-                            <br/><br/>
-                            <InputLabel style={{display:'inline'}} htmlFor="adornment-amount">Don't have an account?</InputLabel>
+                            <br /><br />
+                            <InputLabel style={{ display: 'inline' }} htmlFor="adornment-amount">Don't have an account?</InputLabel>
                             <Link to={"/signup"}><Button>Register</Button></Link>
                         </center>
                     </Paper>
@@ -142,11 +157,10 @@ Login.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
-  
+
 const mapStateToProps = state => ({
     auth: state.auth,
     errors: state.errors
 });
-  
+
 export default connect(mapStateToProps, { loginUser })(Login);
-  

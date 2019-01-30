@@ -14,7 +14,7 @@ class Main extends React.Component {
             <Provider store={store}>
                 <BrowserRouter>
                     <Switch>
-                        <Redirect from="/" to="/login" exact={true} />
+                        <Redirect exact from="/" to="/login" />
                         <Route exact path="/login" component={Login} />
                         <Route path="/signup" component={SignUp} />
                         <Route path="/orders" component={OrderList} />

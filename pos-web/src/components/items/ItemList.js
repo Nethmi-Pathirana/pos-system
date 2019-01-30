@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, InputLabel, GridList, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import AddCart from '@material-ui/icons/AddShoppingCart';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getItems } from '../../actions/ItemActions';
@@ -12,7 +13,6 @@ const styles = {
         display: 'flex',
         width: '20%',
         margin: '2%'
-
     },
     details: {
         display: 'flex',
@@ -110,7 +110,7 @@ class ItemList extends Component {
                         horizontal: 'center',
                     }}
                     open={this.state.showMsg}
-                    autoHideDuration={6000}
+                    autoHideDuration={3000}
                     onClose={this.handleClose}
                     message={'Please specify the amount'}
                     action={[
@@ -164,6 +164,7 @@ class ItemList extends Component {
                                         style={{ marginTop: 5 }}
                                         onClick={() => this.handleAddItem(tile._id)}
                                     >
+                                        <AddCart />
                                         Add
                                     </Button>
                                 </CardContent>

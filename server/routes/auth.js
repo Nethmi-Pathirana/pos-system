@@ -12,12 +12,10 @@ exports.isAuth = (req, res, next) => {
         } else {
           req.isAuthenticated = true;
           req.user = data;
-          next();
         }
+        next();
       });
     } else {
-      req.isAuthenticated = false;
-      res.status(401).json("Unauthorized"); 
+      res.status(401).json("Unauthorized");
     }
 };
-

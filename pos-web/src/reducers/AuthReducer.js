@@ -1,17 +1,30 @@
-import { SET_CURRENT_USER } from '../actions/actions';
+import { SET_CURRENT_USER, LOGOUT_USER, AUTH_ERRORS } from '../actions/actions';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  authError: ''
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
         ...state,
         isAuthenticated: action.payload !== null,
         user: action.payload
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: {},
+      };
+    case AUTH_ERRORS:
+      return {
+        authError: action.payload ,
+        isAuthenticated: false,
+        user: {},
       };
     default:
       return state;

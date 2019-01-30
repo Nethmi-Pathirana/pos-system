@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(req.body.password, user.password).then(isMatch => {
       if (isMatch) {
         // Sign Token
-        jwt.sign(user._doc, SECRET, { expiresIn: 3600*5 }, (err, token) => {
+        jwt.sign(user._doc, SECRET, { expiresIn: '1m' }, (err, token) => {
           res.json({ success: true, token: token});
         });      
       } else {

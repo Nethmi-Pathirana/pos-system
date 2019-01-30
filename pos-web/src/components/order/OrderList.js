@@ -41,11 +41,19 @@ class OrderList extends Component {
     }
 
     componentDidMount() {
-        this.props.getOrders();
+        this.props.getOrders()
+        .then(()=>{
+            if (!this.props.auth.isAuthenticated) {
+                this.props.history.push({
+                    pathname: '/login',
+                    state: { message: this.props.auth.authError }
+                });
+            }
+        });
     }
 
-    handleNewOrder(){
-        this.props.addOrder({status: "open"}).then((result) => {
+    handleNewOrder() {
+        this.props.addOrder({ status: "open" }).then((result) => {
             this.props.history.push(`/order/${result.payload._id}/${store.getState().order.orders.length}`);
         });
     }
@@ -75,13 +83,13 @@ class OrderList extends Component {
 
                 {loading ?
                     (() => { this.setState({ open: true }) }) :
-                    (orders.length !== 0 ? (
+                    (orders && orders.length !== 0 ? (
                         <Paper style={styles.root}>
                             <OrdersTable orders={orders} />
                         </Paper>
                     ) : (
                             <SnackbarContent
-                                style={{ backgroundColor: '#346385', margin: '0 auto' }}
+                                style={{ backgroundColor: '#5181a5', margin: '0 auto' }}
                                 message={
                                     <span style={{ display: 'flex', alignItems: 'center' }}>
                                         <InfoIcon style={{ fontSize: 30, opacity: 0.9, marginRight: 10 }} />
@@ -93,7 +101,7 @@ class OrderList extends Component {
                 }
                 <Tooltip title="Add Order" aria-label="Add" placement="top">
                     <Fab color="primary" aria-label="Add" style={{ position: 'fixed', bottom: '40px', right: '40px' }}>
-                        <AddIcon onClick={()=>{this.handleNewOrder()}} />
+                        <AddIcon onClick={() => { this.handleNewOrder() }} />
                     </Fab>
                 </Tooltip>
 
@@ -105,10 +113,12 @@ class OrderList extends Component {
 OrderList.propTypes = {
     getOrders: PropTypes.func.isRequired,
     addOrder: PropTypes.func.isRequired,
-    order: PropTypes.object.isRequired
+    order: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    order: state.order
+    order: state.order,
+    auth: state.auth
 });
 export default connect(mapStateToProps, { getOrders, addOrder })(OrderList);
