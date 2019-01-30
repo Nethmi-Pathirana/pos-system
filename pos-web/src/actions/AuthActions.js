@@ -2,7 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../utils/AuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS} from './actions';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, LOGOUT_USER} from './actions';
 
 const url = "http://localhost:8080";
 
@@ -57,8 +57,10 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem('jwtToken');
   // Remove auth header for future requests
   setAuthToken(false);
-  // Set current user to {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
+  // Logout user
+  dispatch({
+    type: LOGOUT_USER
+  });
 };
 
 // Clear errors
