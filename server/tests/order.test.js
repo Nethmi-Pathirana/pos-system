@@ -6,7 +6,7 @@ const Order = require('../models/order');
 
 let testOrderId = '';
 let token = '';
-let sampleItemId = '5c4ee8780a07a6505e5af706';
+let sampleItemId = '5c51626fd2a9ca51155d3759';
 
 beforeAll((done) => {
     request(app)
@@ -88,6 +88,22 @@ describe('Test add new item to order', () => {
             .send({
                 itemID: sampleItemId,
                 quantity: 2
+            })
+            .then(response => {
+                expect(response.body).toBeTruthy();
+                expect(response.statusCode).toBe(200);
+            })
+    });
+});
+
+describe('Test add existing item to order', () => {
+    test('It should return order data as body', () => {
+        return request(app)
+            .put(`/orders/add-item/${testOrderId}`)
+            .set({'Authorization': token})
+            .send({
+                itemID: sampleItemId,
+                quantity: 6
             })
             .then(response => {
                 expect(response.body).toBeTruthy();
