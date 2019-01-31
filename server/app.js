@@ -1,4 +1,5 @@
 //imports for sever back-end
+var cors = require('cors');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -19,21 +20,7 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-app.all('/*', (req, res, next) => {
-// CORS headers
-res.header('Access-Control-Allow-Origin', '*'); // restrict it to the required domain
-res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-// Set custom headers for CORS
-res.header(
-    'Access-Control-Allow-Headers',
-    'Content-type,Accept,X-Access-Token,X-Key,Authorization',
-);
-if (req.method === 'OPTIONS') {
-    res.status(200).end();
-} else {
-    next();
-}
-});
+app.use(cors());
 
 //setup api routes
 app.use('/users', userRoutes);
