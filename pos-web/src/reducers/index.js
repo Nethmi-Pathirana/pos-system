@@ -8,5 +8,5 @@ export default combineReducers({
   auth: AuthReducer,
   errors: ErrorReducer,
   order: OrderReducer,
-  item: ItemReducer
+  item: ItemReducer,
 });

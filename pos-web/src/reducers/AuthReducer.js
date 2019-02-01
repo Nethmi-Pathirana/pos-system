@@ -1,9 +1,11 @@
-import { SET_CURRENT_USER, LOGOUT_USER, AUTH_ERRORS, CLEAR_AUTH_ERRORS } from '../actions/actions';
+import {
+  SET_CURRENT_USER, LOGOUT_USER, AUTH_ERRORS, CLEAR_AUTH_ERRORS,
+} from '../actions/actions';
 
 const initialState = {
   isAuthenticated: false,
   user: {},
-  authError: ''
+  authError: '',
 };
 
 export default function (state = initialState, action) {
@@ -12,7 +14,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: action.payload !== null,
-        user: action.payload
+        user: action.payload,
       };
     case LOGOUT_USER:
       return {
@@ -30,11 +32,8 @@ export default function (state = initialState, action) {
     case CLEAR_AUTH_ERRORS:
       return {
         ...state,
-        authError: ''
-        // isAuthenticated: st,
-        // user: {},
+        authError: '',
       };
-      
     default:
       return state;
   }

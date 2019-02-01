@@ -1,71 +1,59 @@
 import axios from 'axios';
-import setAuthToken from '../utils/AuthToken';
 import jwt_decode from 'jwt-decode';
+import setAuthToken from '../utils/AuthToken';
 
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, LOGOUT_USER} from './actions';
+import {
+  GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, LOGOUT_USER,
+} from './actions';
 
-const url = "http://localhost:8080";
+const url = 'http://localhost:8080';
 
 // Register User
-export const registerUser = (userData, history) => dispatch => {
+export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post(`${url}/users/register`, userData)
-    .then(res => history.push('/login'))
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(() => history.push('/login'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
 };
 
 // Login - Get User Token
-export const loginUser = userData => dispatch => {
-  return axios
-    .post(`${url}/users/login`, userData)
-    .then(res => {
-      // Save to localStorage
-      const { token } = res.data; 
-      // Set token to local storage
-      localStorage.setItem('jwtToken', token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      dispatch(setCurrentUser(decoded));
-    })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
+export const loginUser = userData => dispatch => axios
+  .post(`${url}/users/login`, userData)
+  .then((res) => {
+    // Save to localStorage
+    const { token } = res.data;
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    const decoded = jwt_decode(token);
+    // Set current user
+    dispatch(setCurrentUser(decoded));
+  })
+  .catch(err => dispatch({
+    type: GET_ERRORS,
+    payload: err.response.data,
+  }));
 
 // Set logged in user
-export const setCurrentUser = decoded => {
-  return {
-    type: SET_CURRENT_USER,
-    payload: decoded
-  };
-};
+export const setCurrentUser = decoded => ({
+  type: SET_CURRENT_USER,
+  payload: decoded,
+});
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => (dispatch) => {
   // Remove token from localStorage
-  localStorage.removeItem('jwtToken');
-  // Remove auth header for future requests
   setAuthToken(false);
   // Logout user
   dispatch({
-    type: LOGOUT_USER
+    type: LOGOUT_USER,
   });
 };
 
 // Clear errors
-export const clearErrors = () => {
-  return {
-    type: CLEAR_ERRORS
-  };
-};
+export const clearErrors = () => ({
+  type: CLEAR_ERRORS,
+});
