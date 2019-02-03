@@ -69,7 +69,7 @@ class OrderDetails extends Component {
     this.props.deleteOrder(orderId).then((res) => {
       this.props.getOrder(orderId);
       this.props.history.push('/orders');
-      if (res.type && res.type === "DELETE_ORDER") {
+      if (res.type && res.type === 'DELETE_ORDER') {
         this.props.alert.success('Order closed sucessfully');
       }
     });

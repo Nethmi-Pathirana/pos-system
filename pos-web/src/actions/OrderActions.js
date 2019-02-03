@@ -8,12 +8,12 @@ import {
 const url = 'http://localhost:8080';
 
 // Get Orders
-export const getOrders = () => (dispatch) => {
+export const getOrders = status => (dispatch) => {
   dispatch(clearErrors());
   dispatch(clearAuthErrors());
   dispatch(setOrderLoading());
   return axios
-    .get(`${url}/orders`)
+    .get(`${url}/orders?status=${status}`)
     .then(res => dispatch({
       type: GET_ORDERS,
       payload: res.data,

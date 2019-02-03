@@ -11,6 +11,7 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import OrderList from './components/order/OrderList';
 import OrderDetails from './components/order/OrderDetails';
+import AllOrders from './components/order/AllOrders';
 
 const options = {
   position: 'top center',
@@ -31,6 +32,7 @@ class Main extends React.Component {
               <Route path="/signup" component={SignUp} />
               <Route path="/orders" component={OrderList} />
               <Route path="/order/:id" component={OrderDetails} />
+              <Route path="/ordersall" component={AllOrders} />
             </Switch>
           </BrowserRouter>
         </Provider>

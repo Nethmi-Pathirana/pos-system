@@ -7,12 +7,20 @@ var Auth = require('./auth');
 
 // Get all open orders
 router.get('/', Auth.isAuth, (req, res) => {
-    Order.find({})
-        .populate('items.item')
-        .then(orders => {
-            orders = orders.filter(x => x.status.toString() === "open")
-            res.json(orders);
-        });
+    if (req.query.status === "open") {
+        Order.find({})
+            .populate('items.item')
+            .then(orders => {
+                orders = orders.filter(x => x.status.toString() === "open")
+                res.json(orders);
+            });
+    } else {
+        Order.find({})
+            .populate('items.item')
+            .then(orders => {
+                res.json(orders);
+            });
+    }
 });
 
 // Get an order specified by orderID

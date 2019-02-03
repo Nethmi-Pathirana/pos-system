@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import {
-  Paper, Dialog, DialogContent, DialogContentText, DialogTitle, CircularProgress,
+  Button, Paper, Dialog, DialogContent, DialogContentText, DialogTitle, CircularProgress,
 } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import InfoIcon from '@material-ui/icons/Info';
+import ViewList from '@material-ui/icons/ViewList';
 import OrdersTable from './OrdersTable';
 import Header from '../common/Header';
 import { getOrders, addOrder } from '../../actions/OrderActions';
@@ -42,7 +43,7 @@ class OrderList extends Component {
   }
 
   componentDidMount() {
-    this.props.getOrders()
+    this.props.getOrders('open')
       .then(() => {
         if (!this.props.auth.isAuthenticated) {
           this.props.history.push({
@@ -87,6 +88,15 @@ class OrderList extends Component {
           </DialogContent>
         </Dialog>
         <Header title="Point of Sale System" />
+        <Button
+          variant="contained"
+          color="default"
+          style={{ marginTop: 15 }}
+          onClick={() => this.props.history.push('/ordersall')}
+        >
+          <ViewList />
+            View All Orders
+        </Button>
         <Typography variant="headline" component="h1" style={styles.header}>
                     Open Orders
         </Typography>
