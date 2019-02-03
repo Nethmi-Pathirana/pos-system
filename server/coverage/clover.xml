@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1549011128178" clover="3.2.0">
-  <project timestamp="1549011128178" name="All files">
-    <metrics statements="147" coveredstatements="145" conditionals="22" coveredconditionals="22" methods="46" coveredmethods="44" elements="215" coveredelements="211" complexity="0" loc="147" ncloc="147" packages="3" files="8" classes="8">
+<coverage generated="1549227374435" clover="3.2.0">
+  <project timestamp="1549227374435" name="All files">
+    <metrics statements="150" coveredstatements="148" conditionals="24" coveredconditionals="24" methods="47" coveredmethods="45" elements="221" coveredelements="217" complexity="0" loc="150" ncloc="150" packages="3" files="8" classes="8">
       <package name="server">
         <metrics statements="18" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <file name="app.js" path="/home/nethmip/pos-system/server/app.js">
@@ -60,21 +60,21 @@
         </file>
       </package>
       <package name="server.routes">
-        <metrics statements="108" coveredstatements="107" conditionals="22" coveredconditionals="22" methods="44" coveredmethods="43"/>
+        <metrics statements="111" coveredstatements="110" conditionals="24" coveredconditionals="24" methods="45" coveredmethods="44"/>
         <file name="auth.js" path="/home/nethmip/pos-system/server/routes/auth.js">
           <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
           <line num="1" count="3" type="stmt"/>
           <line num="3" count="3" type="stmt"/>
           <line num="5" count="3" type="stmt"/>
-          <line num="6" count="20" type="stmt"/>
-          <line num="7" count="20" type="cond" truecount="2" falsecount="0"/>
-          <line num="8" count="18" type="stmt"/>
-          <line num="9" count="18" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="21" type="stmt"/>
+          <line num="7" count="21" type="cond" truecount="2" falsecount="0"/>
+          <line num="8" count="19" type="stmt"/>
+          <line num="9" count="19" type="cond" truecount="2" falsecount="0"/>
           <line num="10" count="1" type="stmt"/>
           <line num="11" count="1" type="stmt"/>
-          <line num="13" count="17" type="stmt"/>
-          <line num="14" count="17" type="stmt"/>
-          <line num="15" count="17" type="stmt"/>
+          <line num="13" count="18" type="stmt"/>
+          <line num="14" count="18" type="stmt"/>
+          <line num="15" count="18" type="stmt"/>
           <line num="20" count="2" type="stmt"/>
         </file>
         <file name="item.js" path="/home/nethmip/pos-system/server/routes/item.js">
@@ -101,53 +101,56 @@
           <line num="35" count="3" type="stmt"/>
         </file>
         <file name="order.js" path="/home/nethmip/pos-system/server/routes/order.js">
-          <metrics statements="46" coveredstatements="46" conditionals="10" coveredconditionals="10" methods="21" coveredmethods="21"/>
+          <metrics statements="49" coveredstatements="49" conditionals="12" coveredconditionals="12" methods="22" coveredmethods="22"/>
           <line num="1" count="3" type="stmt"/>
           <line num="2" count="3" type="stmt"/>
           <line num="4" count="3" type="stmt"/>
           <line num="5" count="3" type="stmt"/>
           <line num="6" count="3" type="stmt"/>
           <line num="9" count="3" type="stmt"/>
-          <line num="10" count="1" type="stmt"/>
-          <line num="13" count="21" type="stmt"/>
-          <line num="14" count="1" type="stmt"/>
-          <line num="19" count="3" type="stmt"/>
-          <line num="20" count="1" type="stmt"/>
-          <line num="23" count="1" type="stmt"/>
-          <line num="28" count="3" type="stmt"/>
-          <line num="29" count="1" type="stmt"/>
-          <line num="30" count="1" type="stmt"/>
-          <line num="34" count="3" type="stmt"/>
-          <line num="35" count="1" type="stmt"/>
+          <line num="10" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="1" type="stmt"/>
+          <line num="14" count="22" type="stmt"/>
+          <line num="15" count="1" type="stmt"/>
+          <line num="18" count="1" type="stmt"/>
+          <line num="21" count="1" type="stmt"/>
+          <line num="27" count="3" type="stmt"/>
+          <line num="28" count="1" type="stmt"/>
+          <line num="31" count="1" type="stmt"/>
+          <line num="36" count="3" type="stmt"/>
           <line num="37" count="1" type="stmt"/>
-          <line num="39" count="1" type="stmt"/>
-          <line num="40" count="1" type="stmt"/>
-          <line num="47" count="3" type="stmt"/>
-          <line num="48" count="4" type="stmt"/>
-          <line num="51" count="4" type="cond" truecount="2" falsecount="0"/>
-          <line num="52" count="1" type="stmt"/>
-          <line num="54" count="3" type="stmt"/>
+          <line num="38" count="1" type="stmt"/>
+          <line num="42" count="3" type="stmt"/>
+          <line num="43" count="1" type="stmt"/>
+          <line num="45" count="1" type="stmt"/>
+          <line num="47" count="1" type="stmt"/>
+          <line num="48" count="1" type="stmt"/>
           <line num="55" count="3" type="stmt"/>
-          <line num="56" count="2" type="cond" truecount="2" falsecount="0"/>
-          <line num="57" count="1" type="stmt"/>
-          <line num="58" count="1" type="stmt"/>
+          <line num="56" count="4" type="stmt"/>
+          <line num="59" count="4" type="cond" truecount="2" falsecount="0"/>
           <line num="60" count="1" type="stmt"/>
-          <line num="61" count="1" type="stmt"/>
-          <line num="65" count="3" type="cond" truecount="2" falsecount="0"/>
-          <line num="66" count="2" type="stmt"/>
-          <line num="67" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="62" count="3" type="stmt"/>
+          <line num="63" count="3" type="stmt"/>
+          <line num="64" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="65" count="1" type="stmt"/>
+          <line num="66" count="1" type="stmt"/>
           <line num="68" count="1" type="stmt"/>
-          <line num="70" count="1" type="stmt"/>
-          <line num="75" count="1" type="stmt"/>
+          <line num="69" count="1" type="stmt"/>
+          <line num="73" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="74" count="2" type="stmt"/>
+          <line num="75" count="2" type="cond" truecount="2" falsecount="0"/>
           <line num="76" count="1" type="stmt"/>
-          <line num="85" count="3" type="stmt"/>
-          <line num="86" count="2" type="stmt"/>
-          <line num="90" count="2" type="cond" truecount="2" falsecount="0"/>
-          <line num="91" count="1" type="stmt"/>
-          <line num="93" count="1" type="stmt"/>
-          <line num="95" count="1" type="stmt"/>
-          <line num="96" count="1" type="stmt"/>
-          <line num="102" count="3" type="stmt"/>
+          <line num="78" count="1" type="stmt"/>
+          <line num="83" count="1" type="stmt"/>
+          <line num="84" count="1" type="stmt"/>
+          <line num="93" count="3" type="stmt"/>
+          <line num="94" count="2" type="stmt"/>
+          <line num="98" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="99" count="1" type="stmt"/>
+          <line num="101" count="1" type="stmt"/>
+          <line num="103" count="1" type="stmt"/>
+          <line num="104" count="1" type="stmt"/>
+          <line num="110" count="3" type="stmt"/>
         </file>
         <file name="user.js" path="/home/nethmip/pos-system/server/routes/user.js">
           <metrics statements="29" coveredstatements="28" conditionals="6" coveredconditionals="6" methods="11" coveredmethods="10"/>

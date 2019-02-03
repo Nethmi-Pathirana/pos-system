@@ -42,6 +42,18 @@ describe('Test get all orders end point', () => {
     });
 });
 
+describe('Test get all orders end point with status open', () => {
+    test('It should return 200 as status code', () => {
+        return request(app)
+            .get("/orders?status=open")
+            .set({'Authorization': token})
+            .then(response => {
+                expect(response.statusCode).toBe(200);
+                expect(response.body).toBeTruthy();
+            })
+    });
+});
+
 describe('Test add order end point', () => {
     test('It should return status code 200', () => {
         return request(app)
