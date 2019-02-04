@@ -41,7 +41,6 @@ const styles = {
   },
 };
 
-// todo: load all in order list cmponent ekema load krnna balnna closed and open ewa okkoma
 class AllOrders extends Component {
   constructor() {
     super();

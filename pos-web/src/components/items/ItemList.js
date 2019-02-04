@@ -25,15 +25,6 @@ const styles = {
   content: {
     flex: '1 0 auto',
   },
-  cover: {
-    width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: 5,
-    paddingBottom: 5,
-  },
   gridList: {
     width: '100%',
   },
@@ -161,7 +152,6 @@ class ItemList extends Component {
                     {`\$${tile.price}`}
                   </Typography>
                   <InputLabel>Quantity</InputLabel>
-                  {' '}
                   <br />
                   <input type="number" min="1" name="Quantity" id={tile._id} />
                   <Button

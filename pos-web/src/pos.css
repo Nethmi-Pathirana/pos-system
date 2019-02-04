@@ -1,0 +1,67 @@
+.header-h1 {
+    padding-bottom: 20;
+    margin-top: 4%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    font-size: 40;
+    color: #29428c;
+
+}
+
+.sub-heading {
+    margin-top: 2%;
+    margin-left: 1%; 
+    color: #29428c;
+}
+
+.paper-root {
+    margin-left: 10%;
+    width: 80%;
+    overflow-x: auto;
+}
+
+.table {
+    min-width: 700;
+}
+
+.table-row {
+    font-weight: bold;
+    font-size: 14
+}
+
+.table-cell {
+    font-weight: bold; 
+    font-size: 25;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-paper {
+    padding: 2%;
+    margin-top: 5%;
+    margin-left: 38%;
+    width: 20%;
+}
+
+.card {
+    display: flex;
+    width: 20%;
+    margin: 2%;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content {
+    flex: 1 0 auto;
+}
+
+.grid-list {
+    width: 100%;
+}
