@@ -131,7 +131,7 @@ class OrderTable extends Component {
                                 }
                             </TableCell>
                             <TableCell>{item && item.item.name}</TableCell>
-                            <TableCell>{item && `\$${item.item.price}`}</TableCell>
+                            <TableCell>{item && `$${item.item.price}`}</TableCell>
                             <TableCell>
                               <input
                                 type="number"
@@ -142,7 +142,7 @@ class OrderTable extends Component {
                               />
                             </TableCell>
                             <TableCell>
-                              {item && `\$${item.item.price * item.quantity}`}
+                              {item && `$${item.item.price * item.quantity}`}
                             </TableCell>
                           </TableRow>
                         ))}

@@ -39,7 +39,7 @@ class OrdersTable extends Component {
     items.map((x) => {
       total += (x.item.price * x.quantity);
     });
-    return `\$${total}`;
+    return `$${total}`;
   }
 
   handleChangePage(event, page) {
@@ -83,10 +83,10 @@ class OrdersTable extends Component {
                   {<Link to={`/order/${order._id}`} style={{ textDecoration: 'none', marginRight: '1%' }}>
                     <Button variant="contained" color="primary">
                       <EditIcon />
-                      Edit Order
+                      Edit
                     </Button>
                    </Link>}
-                  <Button onClick={() => this.handleDeleteOrder(order._id)} variant="contained" color="secondary">
+                  <Button onClick={() => this.handleDeleteOrder(order._id)} variant="contained" color="default">
                     <DeleteIcon />
                     Delete
                   </Button>

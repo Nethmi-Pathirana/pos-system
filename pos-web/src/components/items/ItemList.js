@@ -149,7 +149,7 @@ class ItemList extends Component {
                     {tile.name}
                   </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
-                    {`\$${tile.price}`}
+                    {`$${tile.price}`}
                   </Typography>
                   <InputLabel>Quantity</InputLabel>
                   <br />

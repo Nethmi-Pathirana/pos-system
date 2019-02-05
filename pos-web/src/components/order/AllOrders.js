@@ -58,7 +58,7 @@ class AllOrders extends Component {
     items.map((x) => {
       total += (x.item.price * x.quantity);
     });
-    return `\$${total}`;
+    return `$${total}`;
   }
 
   handleChangePage(event, page) {
